@@ -13,6 +13,11 @@ class CompanyController extends Controller
     public function index()
     {
         $company = auth()->user()->company;
+        
+        if (!$company) {
+            abort(403, 'Usuário sem empresa vinculada.');
+        }
+
         return view('companies.index', compact('company'));
     }
 

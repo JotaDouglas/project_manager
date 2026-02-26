@@ -4,7 +4,7 @@
     </x-slot>
 
     <div style="padding:20px;">
-        <p><strong>Nome:</strong> {{ $company->name }}</p>
-        <p><strong>Slug:</strong> {{ $company->slug }}</p>
+        <p><strong>Nome:</strong> {{ $company?->name ?? 'Sem empresa' }}</p>
+        <p><strong>Slug:</strong> {{ $company?->slug ?? 'Sem slug' }}</p>
     </div>
 </x-app-layout>
