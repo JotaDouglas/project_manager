@@ -12,9 +12,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('company_id', auth()->user()->company_id)
-            ->latest()
-            ->get();
+        $projects = Project::latest()->get(); // ou Project::all()
 
         return view('projects.index', compact('projects'));
     }
