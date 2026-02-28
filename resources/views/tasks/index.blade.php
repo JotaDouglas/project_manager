@@ -22,6 +22,7 @@
 
 <hr>
 
+
 {{-- Lista de Tasks --}}
 @foreach($tasks as $task)
     <div style="margin-bottom:15px;">
