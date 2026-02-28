@@ -21,4 +21,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    protected $policies = [
+        \App\Models\Task::class => \App\Policies\TaskPolicy::class,
+    ];
 }

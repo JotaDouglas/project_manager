@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
@@ -38,6 +39,8 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
+        $this->authorize('update', $task);
+        
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -51,8 +54,21 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
+
         $this->service->deleteTask($task);
 
         return redirect()->back();
+    }
+
+    public function complete(Task $task)
+    {
+        $this->authorize('update', $task);
+
+        $task->update([
+            'completed' => true,
+        ]);
+
+        return back()->with('success', 'Task concluída!');
     }
 }

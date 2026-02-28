@@ -16,11 +16,16 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])
+        ->name('tasks.complete');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::resource('projects', ProjectController::class)->middleware('admin');
     Route::resource('companies', CompanyController::class)->middleware('admin');
     Route::resource('/tasks', TaskController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
