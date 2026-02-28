@@ -1,7 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2>Projects</h2>
-    </x-slot>
+@extends('layouts.app')
+
+@section('title', 'Projects')
+
+@section('content')
+    <h1 class="text-2xl font-bold mb-4">Projects</h1>
 
     <div style="padding: 16px;">
         <form method="POST" action="{{ route('projects.store') }}">
@@ -26,4 +28,4 @@
             @endforeach
         </ul>
     </div>
-</x-app-layout>
+@endsection
