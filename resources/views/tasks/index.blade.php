@@ -1,10 +1,10 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2>Tasks</h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div style="padding: 16px;">
-        {{-- Formulário de criação --}}
+@section('title', 'Minhas Tasks')
+
+@section('content')
+    <h1 class="text-2xl font-bold mb-4">Minhas Tasks</h1>
+    {{-- Formulário de criação --}}
         <form method="POST" action="{{ route('tasks.store') }}">
             @csrf
 
@@ -54,5 +54,6 @@
                 </form>
             </div>
         @endforeach
-    </div>
-</x-app-layout>
+
+    {{-- Seu formulário e lista aqui (o mesmo que já fez) --}}
+@endsection
