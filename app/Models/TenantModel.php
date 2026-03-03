@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Scopes\CompanyScope;
+use App\Models\Scopes\CompanyScope;
 
 class TenantModel extends Model
 {

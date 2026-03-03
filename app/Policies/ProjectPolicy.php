@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Task;
+use App\Models\Project;
 use App\Models\User;
 
-class TaskPolicy
+class ProjectPolicy
 {
     public function viewAny(User $user): bool
     {

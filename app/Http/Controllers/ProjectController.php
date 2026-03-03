@@ -95,8 +95,6 @@ class ProjectController extends Controller
 
     private function findProjectOrFail(int $id): Project
     {
-        return Project::where('company_id', auth()->user()->company_id)
-            ->where('id', $id)
-            ->firstOrFail();
+        return Project::findOrFail($id);
     }
 }
