@@ -10,24 +10,6 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks')">
-                        {{ __('Tasks') }}
-                    </x-nav-link>
-                    @if (auth()->user()->isAdmin())
-                        <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')">
-                            {{ __('Company') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
-                            {{ __('Projects') }}
-                        </x-nav-link>
-                    @endif
-
-                </div>
             </div>
 
             <!-- Settings Dropdown -->

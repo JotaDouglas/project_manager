@@ -32,6 +32,15 @@
 
         @if (auth()->user()->isAdmin())
             <a
+                href="{{ route('users.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded text-sm
+                    {{ request()->routeIs('users.*') ? 'bg-gray-100 font-semibold' : 'hover:bg-gray-50' }}"
+                title="Users"
+            >
+                <span class="material-icons text-lg">edit</span>
+                <span x-show="sidebarOpen">Cadastros</span>
+            </a>
+            <a
                 href="{{ route('projects.index') }}"
                 class="flex items-center gap-3 px-3 py-2 rounded text-sm
                     {{ request()->routeIs('projects.*') ? 'bg-gray-100 font-semibold' : 'hover:bg-gray-50' }}"
