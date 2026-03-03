@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 
-class Task extends Model
+class Task extends TenantModel
 {
     use HasFactory;
 
