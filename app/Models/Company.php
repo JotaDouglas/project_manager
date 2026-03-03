@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\TenantModel;
+use Illuminate\Database\Eloquent\Model;
 
-
-class Company extends TenantModel
+class Company extends Model
 {
     public function users()
     {

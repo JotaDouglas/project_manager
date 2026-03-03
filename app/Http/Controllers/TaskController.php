@@ -18,6 +18,8 @@ class TaskController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Task::class);
+
         $tasks = $this->service->listUserTasks(auth()->id());
 
         return view('tasks.index', compact('tasks'));
@@ -25,12 +27,14 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Task::class);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
 
         $validated['user_id'] = auth()->id();
+        $validated['company_id'] = auth()->user()->company_id;
 
         $this->service->createTask($validated);
 

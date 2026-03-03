@@ -14,6 +14,7 @@ class Task extends TenantModel
         'description',
         'completed',
         'user_id',
+        'company_id',
     ];
 
     protected $casts = [
