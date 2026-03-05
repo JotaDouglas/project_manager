@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TenantModel;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class TenantModelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $company = auth()->user()->company;
-        
-        if (!$company) {
-            abort(403, 'Usuário sem empresa vinculada.');
-        }
-
-        return view('companies.index', compact('company'));
+        //
     }
 
     /**
@@ -39,7 +34,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(TenantModel $tenantModel)
     {
         //
     }
@@ -47,7 +42,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(TenantModel $tenantModel)
     {
         //
     }
@@ -55,7 +50,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, TenantModel $tenantModel)
     {
         //
     }
@@ -63,7 +58,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(TenantModel $tenantModel)
     {
         //
     }

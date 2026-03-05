@@ -5,22 +5,25 @@
 @section('content')
     <h1 class="text-2xl font-bold mb-4">Minhas Tasks</h1>
     {{-- Formulário de criação --}}
-    <form method="POST" action="{{ route('tasks.store') }}">
-        @csrf
+    @can('create', \App\Models\Task::class)
+        <form method="POST" action="{{ route('tasks.store') }}">
+            @csrf
 
-        <input type="text" name="title" placeholder="Título" required>
-        <br><br>
+            <input type="text" name="title" placeholder="Título" required>
+            <br><br>
 
-        <textarea name="description" placeholder="Descrição"></textarea>
-        <br><br>
+            <textarea name="description" placeholder="Descrição"></textarea>
+            <br><br>
 
-        <button type="submit">Criar Task</button>
-    </form>
+            <button type="submit">Criar Task</button>
+        </form>
+    @endcan
 
     <hr>
 
 
     {{-- Lista de Tasks --}}
+
     @foreach ($tasks as $task)
         <div style="margin-bottom:15px;">
             <strong>{{ $task->title }}</strong>
@@ -36,19 +39,23 @@
 
             <br><br>
 
-            {{-- Botão concluir --}}
-            <form method="POST" action="{{ route('tasks.complete', $task->id) }}">
-                @csrf
-                @method('PATCH')
-                <button type="submit">Concluir</button>
-            </form>
+            @can('update', $task)
+                {{-- Botão concluir --}}
+                <form method="POST" action="{{ route('tasks.complete', $task) }}">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit">Concluir</button>
+                </form>
+            @endcan
 
-            {{-- Botão deletar --}}
-            <form method="POST" action="{{ route('tasks.destroy', $task->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Excluir</button>
-            </form>
+            @can('delete', $task)
+                {{-- Botão deletar --}}
+                <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Excluir</button>
+                </form>
+            @endcan
         </div>
     @endforeach
 

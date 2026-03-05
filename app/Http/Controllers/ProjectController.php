@@ -12,8 +12,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest()->get(); // ou Project::all()
+        $this->authorize('viewAny', Project::class);
 
+        $projects = Project::latest()->get();
         return view('projects.index', compact('projects'));
     }
 
@@ -22,24 +23,23 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Project::class);
+        return view('projects.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $this->authorize('create', Project::class);
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
         ]);
 
         Project::create([
-            'name' => $data['name'],
-            'description' => $data['description'] ?? null,
+            ...$data,
             'company_id' => auth()->user()->company_id,
-            'user_id' => auth()->id(), // responsável (opcional)
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('projects.index');
@@ -48,10 +48,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(Project $project)
     {
-        $project = $this->findProjectOrFail($id);
-
+        $this->authorize('view', $project);
         return view('projects.show', compact('project'));
     }
 
@@ -60,7 +59,7 @@ class ProjectController extends Controller
      */
     public function edit(int $id)
     {
-        $project = $this->findProjectOrFail($id);
+        $this->authorize('update', $project);
 
         return view('projects.show', compact('project'));
     }
@@ -68,9 +67,9 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Project $project)
     {
-        $project = $this->findProjectOrFail($id);
+        $this->authorize('update', $project);
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -85,18 +84,16 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(Project $project)
     {
-        $project = $this->findProjectOrFail($id);
-        $project->delete();
+        $this->authorize('delete', $project);
 
+        $project->delete();
         return redirect()->route('projects.index');
     }
 
     private function findProjectOrFail(int $id): Project
     {
-        return Project::where('company_id', auth()->user()->company_id)
-            ->where('id', $id)
-            ->firstOrFail();
+        return Project::findOrFail($id);
     }
 }

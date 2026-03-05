@@ -2,17 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\Task;
+use App\Models\Project;
 use App\Models\User;
 
-class TaskPolicy
+class ProjectPolicy
 {
     public function viewAny(User $user): bool
     {
         return true; // qualquer usuário logado vê a lista da sua empresa
     }
 
-    public function view(User $user, Task $task): bool
+    public function view(User $user, Project $project): bool
     {
         return true; // scope já garante que é da empresa
     }
@@ -22,18 +22,16 @@ class TaskPolicy
         return true; // ou: $user->isAdmin()
     }
 
-    public function update(User $user, Task $task): bool
+    public function update(User $user, Project $project): bool
     {
         // exemplo: admin da empresa pode editar qualquer um,
         // membro só edita se for o owner
-        if ($user->isAdmin()) {
-            return true;
-        }
+        if ($user->isAdmin()) return true;
 
-        return $task->user_id === $user->id;
+        return $project->user_id === $user->id;
     }
 
-    public function delete(User $user, Task $task): bool
+    public function delete(User $user, Project $project): bool
     {
         // geralmente mais restrito
         return $user->isAdmin();

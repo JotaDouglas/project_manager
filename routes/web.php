@@ -15,21 +15,21 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])
         ->name('tasks.complete');
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('projects', ProjectController::class)->middleware('admin');
-    Route::resource('companies', CompanyController::class)->middleware('admin');
-    Route::resource('/tasks', TaskController::class);
+    Route::resource('projects', ProjectController::class);
+    Route::resource('tasks', TaskController::class);
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Route::resource('companies', CompanyController::class);
     Route::resource('users', UserController::class);
 });
 

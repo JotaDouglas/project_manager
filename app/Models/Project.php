@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 use App\Models\Scopes\CompanyScope;
 
-class Project extends Model
+class Project extends TenantModel
 {
     protected $fillable = [
         'name',
