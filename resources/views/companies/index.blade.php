@@ -8,5 +8,6 @@
     <div style="padding:20px;">
         <p><strong>Nome:</strong> {{ $company?->name ?? 'Sem empresa' }}</p>
         <p><strong>Slug:</strong> {{ $company?->slug ?? 'Sem slug' }}</p>
+        <p><strong>CNPJ:</strong> {{ $company?->cnpj ?? 'Nao informado' }}</p>
     </div>
 @endsection

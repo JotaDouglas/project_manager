@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\TenantModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Task extends TenantModel
+class Task extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,6 @@ class Task extends TenantModel
         'description',
         'completed',
         'user_id',
-        'company_id',
     ];
 
     protected $casts = [

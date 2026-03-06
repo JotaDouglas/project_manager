@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -11,11 +12,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = auth()->user()->company;
-        
-        if (!$company) {
-            abort(403, 'Usuário sem empresa vinculada.');
-        }
+        $company = Company::query()->firstOrFail();
 
         return view('companies.index', compact('company'));
     }

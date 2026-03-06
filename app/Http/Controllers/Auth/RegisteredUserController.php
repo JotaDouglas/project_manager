@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-use App\Models\Company;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-
 class RegisteredUserController extends Controller
 {
     /**
@@ -39,20 +35,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        DB::transaction(function () use ($request, &$user) {
-
-            $company = Company::create([
-                'name' => $request->name . ' Company',
-                'slug' => Str::slug($request->name . '-' . Str::random(5)),
-            ]);
-
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'company_id' => $company->id,
-            ]);
-        });
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
         event(new Registered($user));
 

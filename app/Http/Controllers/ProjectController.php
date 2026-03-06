@@ -38,7 +38,6 @@ class ProjectController extends Controller
 
         Project::create([
             ...$data,
-            'company_id' => auth()->user()->company_id,
             'user_id' => auth()->id(),
         ]);
 

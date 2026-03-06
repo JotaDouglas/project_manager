@@ -34,7 +34,6 @@ class TaskController extends Controller
         ]);
 
         $validated['user_id'] = auth()->id();
-        $validated['company_id'] = auth()->user()->company_id;
 
         $this->service->createTask($validated);
 
